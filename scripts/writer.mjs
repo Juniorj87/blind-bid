@@ -72,7 +72,7 @@ const server = nodeHttp.createServer(async (req, res) => {
           break;
         } catch (e) {
           const m = String(e.shortMessage || e.message) + ' ' + String(e.details || '') + ' status=' + String(e.status || '');
-          if (!/429|Too Many Requests|rate limit|Missing or invalid parameters/i.test(m) || i === 3) throw e;
+          if (!/429|Too Many Requests|rate limit|Missing or invalid parameters|expired/i.test(m) || i === 3) throw e;
           await new Promise((r) => setTimeout(r, 6000));
         }
       }

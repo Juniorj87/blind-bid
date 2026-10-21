@@ -50,7 +50,7 @@ async function retry(fn, tries = 5) {
     try { return await fn(); }
     catch (e) {
       const msg = String(e.shortMessage || e.message) + ' ' + String(e.details || '') + ' status=' + String(e.status || '');
-      if (!/429|Too Many Requests|rate limit/i.test(msg) || i === tries - 1) throw e;
+      if (!/429|Too Many Requests|rate limit|Missing or invalid parameters|expired/i.test(msg) || i === tries - 1) throw e;
       await new Promise((r) => setTimeout(r, 15000));
     }
   }
