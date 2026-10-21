@@ -18,7 +18,7 @@ import { createShieldedWalletClient, createShieldedPublicClient, shieldedWriteCo
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 dotenv.config({ path: path.join(ROOT, '..', '.env') });
 const dep = JSON.parse(fs.readFileSync(path.join(ROOT, 'deployments.json'), 'utf8'));
-const art = JSON.parse(fs.readFileSync(path.join(ROOT, 'artifacts.json'), 'utf8'));
+const art = JSON.parse(fs.readFileSync(path.join(ROOT, 'artifacts-shielded.json'), 'utf8'));
 
 const RPC = dep.rpc;
 const BB = dep.contracts.BlindBid.address;

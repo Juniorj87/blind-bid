@@ -14,7 +14,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 dotenv.config({ path: path.join(ROOT, '..', '.env') });
 
 const dep = JSON.parse(fs.readFileSync(path.join(ROOT, 'deployments.json'), 'utf8'));
-const art = JSON.parse(fs.readFileSync(path.join(ROOT, 'artifacts.json'), 'utf8'));
+const art = JSON.parse(fs.readFileSync(path.join(ROOT, 'artifacts-shielded.json'), 'utf8'));
 const RPC = dep.rpc;
 const BB = dep.contracts.BlindBid.address;
 const SS = dep.contracts.SealStore.address;
@@ -55,8 +55,11 @@ async function retry(fn, tries = 5) {
     }
   }
 }
+// storage-раскладка нативной сборки: slot 0 — tenders, slot 1 — _bidAmount
+const BID_AMOUNT_SLOT = 1n;
 const slotOf = (tenderId, i) =>
-  keccak256(('0x' + tenderId.toString(16).padStart(64, '0') + BigInt(i).toString(16).padStart(64, '0')));
+  keccak256(('0x' + tenderId.toString(16).padStart(64, '0') +
+    keccak256(('0x' + BigInt(i).toString(16).padStart(64, '0') + BID_AMOUNT_SLOT.toString(16).padStart(64, '0'))).slice(2)));
 
 console.log('\nBLINDBID · self-test');
 console.log(`rpc ${RPC} · contract ${BB}\n`);
@@ -87,7 +90,7 @@ for (let id = 0n; id < count; id++) {
     const rows = await Promise.all(
       Array.from({ length: Number(t.bidCount) }).map(async (_, i) => {
         const slot = slotOf(id, BigInt(i));
-        const raw = await pub.getStorageAt({ address: SS, slot });
+        const raw = await pub.getStorageAt({ address: BB, slot });
         return { i, slot, raw };
       })
     );

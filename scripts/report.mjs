@@ -13,7 +13,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 dotenv.config({ path: path.join(ROOT, '..', '.env') });
 
 const dep = JSON.parse(fs.readFileSync(path.join(ROOT, 'deployments.json'), 'utf8'));
-const art = JSON.parse(fs.readFileSync(path.join(ROOT, 'artifacts.json'), 'utf8'));
+const art = JSON.parse(fs.readFileSync(path.join(ROOT, 'artifacts-shielded.json'), 'utf8'));
 const pub = createPublicClient({ chain: seismicTestnet, transport: http(dep.rpc, { retryCount: 4, retryDelay: 4000 }) });
 const shielded = createShieldedPublicClient({ chain: seismicTestnet, transport: http(dep.rpc, { retryCount: 4, retryDelay: 4000 }) });
 const main = privateKeyToAccount(process.env.MAIN_PK);

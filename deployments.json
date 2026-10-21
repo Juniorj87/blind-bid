@@ -11,8 +11,18 @@
       "hash": null
     },
     "BlindBid": {
-      "address": "0xd9191d5f065a44778890de4e80c57fc2b1237ec4",
+      "address": "0x9a0e48764f7e761cc8dfd99e82e239031ec13a10",
+      "hash": null,
+      "build": "shielded: ssolc (seismic-solidity), suint256"
+    },
+    "BlindBidShielded": {
+      "address": "0x9a0e48764f7e761cc8dfd99e82e239031ec13a10",
       "hash": null
+    },
+    "BlindBidPortable": {
+      "address": "0xd9191d5f065a44778890de4e80c57fc2b1237ec4",
+      "hash": null,
+      "build": "portable: solc + SealStore.yul (CSTORE через verbatim)"
     }
   },
   "events": []

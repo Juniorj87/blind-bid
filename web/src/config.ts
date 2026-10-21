@@ -5,8 +5,9 @@ export const CHAIN_ID = 5124;
 export const EXPLORER = 'https://seismic-testnet.socialscan.io';
 
 export const CONTRACTS = {
-  BlindBid: '0xd9191d5f065a44778890de4e80c57fc2b1237ec4',
+  BlindBid: '0x9a0e48764f7e761cc8dfd99e82e239031ec13a10',
   SealStore: '0x427b3bc3a4fae1862ca380ffba35b349e7f91e85',
+  BlindBidShielded: '0x9a0e48764f7e761cc8dfd99e82e239031ec13a10',
 };
 
 export const SUSDC = '0x790701048922e265105fd6a4467a2901c2201c43';

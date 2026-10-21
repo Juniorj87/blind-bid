@@ -116,24 +116,30 @@ export async function externalWalletClient(address: string) {
   });
 }
 
-/** Слоты приватного хранилища для лота: keccak(abi.encode(tenderId, idx)). */
+/**
+ * Слоты приватного хранилища для лота.
+ * Нативная сборка (suint256): _bidAmount[tenderId][idx] -> keccak(tenderId, keccak(idx, 1)),
+ * где 1 — позиция маппинга в storage-раскладке контракта.
+ */
 export function bidSlots(tenderId: bigint, count: number) {
   const out: `0x${string}`[] = [];
+  const MAP_SLOT = 1n;
   for (let i = 0; i < count; i++) {
-    const enc = ('0x' + tenderId.toString(16).padStart(64, '0') + BigInt(i).toString(16).padStart(64, '0')) as `0x${string}`;
-    out.push(keccak256(enc));
+    const inner = keccak256(('0x' + BigInt(i).toString(16).padStart(64, '0') + MAP_SLOT.toString(16).padStart(64, '0')) as `0x${string}`);
+    const outer = keccak256(('0x' + tenderId.toString(16).padStart(64, '0') + inner.slice(2)) as `0x${string}`);
+    out.push(outer);
   }
   return out;
 }
 
 /** Сырое чтение приватных слотов — наблюдатель видит нули. */
 export async function readPrivateSlots(tenderId: bigint, count: number) {
-  console.log('readPrivateSlots', tenderId, count, 'sealStore', CONTRACTS.SealStore);
+  console.log('readPrivateSlots', tenderId, count, 'contract', CONTRACTS.BlindBid);
   const slots = bidSlots(tenderId, count);
   const rows = await Promise.all(
     slots.map(async (slot) => {
       try {
-        const raw = await publicClient.getStorageAt({ address: CONTRACTS.SealStore as `0x${string}`, slot });
+        const raw = await publicClient.getStorageAt({ address: CONTRACTS.BlindBid as `0x${string}`, slot });
         return { slot, raw };
       } catch (e) {
         console.error('getStorageAt failed', e);

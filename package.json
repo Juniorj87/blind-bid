@@ -17,7 +17,9 @@
     "fund": "node scripts/fund-demo.mjs",
     "writer": "node scripts/writer.mjs",
     "web": "npm --prefix web install --no-audit --no-fund && npm --prefix web run dev",
-    "web:build": "npm --prefix web install && npm --prefix web run build"
+    "web:build": "npm --prefix web install && npm --prefix web run build",
+    "build:shielded": "node scripts/build-shielded.mjs",
+    "seed:shielded": "node scripts/seed-shielded.mjs"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
