@@ -1,0 +1,30 @@
+{
+  "name": "blind-bid",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Sealed-bid tender on Seismic: encrypted calldata, private slots, winner computed inside the TEE",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "seed": "node scripts/seed-english.mjs",
+    "seed:buyer": "node scripts/seed-buyer-lot.mjs",
+    "test": "node scripts/selftest.mjs",
+    "test:scan": "node scripts/selftest.mjs --scan 60000",
+    "report": "node scripts/report.mjs",
+    "demo": "node scripts/demo.mjs",
+    "read": "node scripts/readtest.mjs",
+    "fund": "node scripts/fund-demo.mjs",
+    "writer": "node scripts/writer.mjs",
+    "web": "npm --prefix web run dev",
+    "web:build": "npm --prefix web install && npm --prefix web run build"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "seismic-viem": "latest",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "solc": "^0.8.37"
+  }
+}

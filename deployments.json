@@ -1,0 +1,19 @@
+{
+  "chainId": 5124,
+  "rpc": "https://testnet-3.seismictest.net/rpc",
+  "readRpc": "https://testnet-1.seismictest.net/rpc",
+  "explorer": "https://seismic-testnet.socialscan.io",
+  "susdc": "0x790701048922e265105fd6a4467a2901c2201c43",
+  "deployedAt": "2026-10-21T16:56:42.200Z",
+  "contracts": {
+    "SealStore": {
+      "address": "0x427b3bc3a4fae1862ca380ffba35b349e7f91e85",
+      "hash": null
+    },
+    "BlindBid": {
+      "address": "0xd9191d5f065a44778890de4e80c57fc2b1237ec4",
+      "hash": null
+    }
+  },
+  "events": []
+}
