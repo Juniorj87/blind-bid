@@ -16,7 +16,7 @@
     "read": "node scripts/readtest.mjs",
     "fund": "node scripts/fund-demo.mjs",
     "writer": "node scripts/writer.mjs",
-    "web": "npm --prefix web run dev",
+    "web": "npm --prefix web install --no-audit --no-fund && npm --prefix web run dev",
     "web:build": "npm --prefix web install && npm --prefix web run build"
   },
   "dependencies": {
